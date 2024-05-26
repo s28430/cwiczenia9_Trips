@@ -9,11 +9,18 @@ public class TripService(ITripRepository tripRepository) : ITripService
     
     public async Task<PagedGetTripsResponseDto> GetTripsInfoAsync(int? pageNum, int? pageSize, CancellationToken cancellationToken)
     {
-        pageNum ??= 1;
-        pageSize ??= 10;
-        
         var trips = await _tripRepository.GetTripsAsync(cancellationToken);
 
-        return new PagedGetTripsResponseDto(1, 2, 4, trips);
+        var pageNumNonNull = pageNum ?? 1;
+        var pageSizeNonNull = pageSize ?? 10;
+        
+        var totalCount = trips.Count;
+        var allPages = (int)Math.Ceiling((double) totalCount / pageSizeNonNull);
+
+        var skippedTrips = trips
+            .Skip((pageNumNonNull - 1) * pageSizeNonNull).ToList();
+        
+        
+        return new PagedGetTripsResponseDto(pageNum ?? 1, pageSize ?? 10, allPages, skippedTrips);
     }
 }

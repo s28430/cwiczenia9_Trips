@@ -1,3 +1,4 @@
+using System.Collections;
 using Microsoft.EntityFrameworkCore;
 using Trips.Dtos;
 using Trips.Entities;
@@ -9,7 +10,7 @@ public class TripRepository(Cwiczenia9TripContext context) : ITripRepository
 {
     private readonly Cwiczenia9TripContext _context = context;
     
-    public async Task<IEnumerable<TripDto>> GetTripsAsync(CancellationToken cancellationToken)
+    public async Task<ICollection<TripDto>> GetTripsAsync(CancellationToken cancellationToken)
     {
    
         var trips = await _context
@@ -27,7 +28,8 @@ public class TripRepository(Cwiczenia9TripContext context) : ITripRepository
                 Countries = trip.IdCountries.Select(country => new CountryDto(country.Name)).ToList(),
                 Clients = trip.ClientTrips.Select(ct =>
                     new ClientDto(ct.IdClientNavigation.FirstName, ct.IdClientNavigation.LastName))
-            }).ToListAsync(cancellationToken);
+            })
+            .ToListAsync(cancellationToken);
             
         return trips;
     }
