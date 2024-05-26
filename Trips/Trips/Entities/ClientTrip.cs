@@ -15,5 +15,5 @@ public partial class ClientTrip
 
     public virtual Client IdClientNavigation { get; set; } = null!;
 
-    public virtual Trip IdTripDtoNavigation { get; set; } = null!;
+    public virtual Trip IdTripNavigation { get; set; } = null!;
 }

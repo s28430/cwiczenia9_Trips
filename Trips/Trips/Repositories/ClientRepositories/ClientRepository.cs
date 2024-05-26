@@ -29,4 +29,27 @@ public class ClientRepository(Cwiczenia9TripContext dbContext) : IClientReposito
         _context.Clients.Remove(client);
         await _context.SaveChangesAsync(cancellationToken);
     }
+
+    public async Task<Client?> GetClientByPeselAsync(string pesel, CancellationToken cancellationToken)
+    {
+        var client = await _context
+            .Clients
+            .Where(client => client.Pesel == pesel)
+            .Include(client => client.ClientTrips)
+            .FirstOrDefaultAsync(cancellationToken);
+        return client;
+    }
+
+    public async Task<ICollection<Trip>> GetTripsOfClientByClientPeselAsync(string clientPesel,
+        CancellationToken cancellationToken)
+    {
+        var trips = await _context
+            .ClientTrips
+            .Where(ct => ct.IdClientNavigation.Pesel == clientPesel)
+            .Include(ct => ct.IdTripNavigation)
+            .Select(ct => ct.IdTripNavigation)
+            .ToListAsync(cancellationToken);
+
+        return trips;
+    }
 }

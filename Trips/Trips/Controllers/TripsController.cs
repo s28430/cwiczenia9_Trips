@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Trips.Dtos.RequestsDtos;
 using Trips.Exceptions;
 using Trips.Services;
 using Trips.Services.ClientServices;
@@ -35,5 +36,26 @@ public class TripsController(ITripService tripService, IClientService clientServ
         {
             return Conflict(e.Message);
         }
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> AssignClientToTripAsync(
+        AssignClientToTripRequestDto data, 
+        CancellationToken cancellationToken)
+    {
+        try
+        {
+            await _clientService.AssignClientToTripAsync(data, cancellationToken);
+        }
+        catch (Exception e) when (e is TripNotFoundException or ClientNotFoundException)
+        {
+            return NotFound(e.Message);
+        }
+        catch (ClientAlreadyAssignedToTripException e)
+        {
+            return Conflict(e.Message);
+        }
+
+        return Ok();
     }
 }

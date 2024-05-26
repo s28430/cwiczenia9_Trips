@@ -31,4 +31,13 @@ public class TripRepository(Cwiczenia9TripContext context) : ITripRepository
             
         return trips;
     }
+
+    public async Task<Trip?> GetTripByIdAsync(int idTrip, CancellationToken cancellationToken)
+    {
+        var trip = await _context
+            .Trips
+            .SingleOrDefaultAsync(trip => trip.IdTrip == idTrip, cancellationToken);
+
+        return trip;
+    }
 }

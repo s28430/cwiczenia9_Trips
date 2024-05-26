@@ -57,7 +57,7 @@ public partial class Cwiczenia9TripContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("Table_5_Client");
 
-            entity.HasOne(d => d.IdTripDtoNavigation).WithMany(p => p.ClientTrips)
+            entity.HasOne(d => d.IdTripNavigation).WithMany(p => p.ClientTrips)
                 .HasForeignKey(d => d.IdTrip)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("Table_5_Trip");
