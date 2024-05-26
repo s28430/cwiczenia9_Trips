@@ -24,7 +24,6 @@ public class AssignClientToTripRequestDto
 
     [Required]
     public string TripName { get; set; } = null!;
-
-    [Required]
+    
     public string PaymentDate { get; set; } = null!;
 }

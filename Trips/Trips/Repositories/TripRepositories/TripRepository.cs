@@ -40,4 +40,19 @@ public class TripRepository(Cwiczenia9TripContext context) : ITripRepository
 
         return trip;
     }
+
+    public async Task AssignClientToTripAsync(int idClient, int idTrip, DateTime registeredAt, 
+        DateTime? paymentDate, CancellationToken cancellationToken)
+    {
+        var ct = new ClientTrip
+        {
+            IdTrip = idTrip,
+            IdClient = idClient,
+            RegisteredAt = registeredAt,
+            PaymentDate = paymentDate
+        };
+
+        await _context.ClientTrips.AddAsync(ct, cancellationToken);
+        await _context.SaveChangesAsync(cancellationToken);
+    }
 }

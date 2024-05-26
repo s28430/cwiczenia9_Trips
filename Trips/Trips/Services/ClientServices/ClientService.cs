@@ -19,12 +19,6 @@ public class ClientService(IClientRepository clientRepository, ITripRepository t
         await _clientRepository.DeleteClientAsync(idClient, cancellationToken);
     }
 
-    private async Task<bool> ClientExistsByPeselAsync(string pesel, CancellationToken cancellationToken)
-    {
-        var client = await _clientRepository.GetClientByPeselAsync(pesel, cancellationToken);
-        return client is not null;
-    }
-
     private async Task<bool> ClientAssignedToTripAsync(string clientPesel, int idTrip, CancellationToken cancellationToken)
     {
         var tripsOfClient = 
@@ -41,9 +35,10 @@ public class ClientService(IClientRepository clientRepository, ITripRepository t
     public async Task AssignClientToTripAsync(AssignClientToTripRequestDto data, CancellationToken cancellationToken)
     {
         await using var transaction = await _context.Database.BeginTransactionAsync(cancellationToken);
-        
 
-        if (!await ClientExistsByPeselAsync(data.ClientPesel, cancellationToken))
+        var client = await _clientRepository.GetClientByPeselAsync(data.ClientPesel, cancellationToken);
+
+        if (client is null)
         {
             await transaction.RollbackAsync(cancellationToken);
             throw new ClientNotFoundException($"Client with pesel '{data.ClientPesel}' does not exist.");
@@ -62,5 +57,11 @@ public class ClientService(IClientRepository clientRepository, ITripRepository t
             await transaction.RollbackAsync(cancellationToken);
             throw new TripNotFoundException($"Trip with id {data.IdTrip} does not exist.");
         }
+
+        DateTime? paymentDate = string.IsNullOrEmpty(data.PaymentDate) ? null : DateTime.Parse(data.PaymentDate);
+
+        await _tripRepository.AssignClientToTripAsync(client.IdClient, data.IdTrip,
+            DateTime.Now, paymentDate, cancellationToken);
+        await transaction.CommitAsync(cancellationToken);
     }
 }
