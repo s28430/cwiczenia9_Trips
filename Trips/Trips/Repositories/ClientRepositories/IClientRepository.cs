@@ -1,4 +1,4 @@
-namespace Trips.Repositories;
+namespace Trips.Repositories.ClientRepositories;
 
 public interface IClientRepository
 {

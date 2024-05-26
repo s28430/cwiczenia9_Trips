@@ -1,10 +1,8 @@
-using System.Collections;
 using Microsoft.EntityFrameworkCore;
-using Trips.Dtos;
+using Trips.Dtos.EntitiesDtos;
 using Trips.Entities;
 
-
-namespace Trips.Repositories;
+namespace Trips.Repositories.TripRepositories;
 
 public class TripRepository(Cwiczenia9TripContext context) : ITripRepository
 {

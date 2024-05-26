@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Trips.Exceptions;
 using Trips.Services;
+using Trips.Services.ClientServices;
+using Trips.Services.TripServices;
 
 namespace Trips.Controllers;
 

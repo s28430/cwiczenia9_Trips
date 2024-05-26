@@ -1,6 +1,6 @@
-using Trips.Repositories;
+using Trips.Repositories.ClientRepositories;
 
-namespace Trips.Services;
+namespace Trips.Services.ClientServices;
 
 public class ClientService(IClientRepository clientRepository) : IClientService
 {

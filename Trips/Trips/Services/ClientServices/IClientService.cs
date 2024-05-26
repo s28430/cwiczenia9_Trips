@@ -1,4 +1,4 @@
-namespace Trips.Services;
+namespace Trips.Services.ClientServices;
 
 public interface IClientService
 {

@@ -1,6 +1,10 @@
 using Trips.Entities;
 using Trips.Repositories;
+using Trips.Repositories.ClientRepositories;
+using Trips.Repositories.TripRepositories;
 using Trips.Services;
+using Trips.Services.ClientServices;
+using Trips.Services.TripServices;
 
 var builder = WebApplication.CreateBuilder(args);
 

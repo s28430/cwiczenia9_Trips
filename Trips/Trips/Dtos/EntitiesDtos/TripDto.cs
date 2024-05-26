@@ -1,6 +1,4 @@
-using System.ComponentModel.DataAnnotations;
-
-namespace Trips.Dtos;
+namespace Trips.Dtos.EntitiesDtos;
 
 public class TripDto
 {

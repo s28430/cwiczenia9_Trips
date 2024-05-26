@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Trips.Entities;
 using Trips.Exceptions;
 
-namespace Trips.Repositories;
+namespace Trips.Repositories.ClientRepositories;
 
 public class ClientRepository(Cwiczenia9TripContext dbContext) : IClientRepository
 {

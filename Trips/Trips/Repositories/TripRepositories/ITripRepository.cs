@@ -1,7 +1,6 @@
-using System.Collections;
-using Trips.Dtos;
+using Trips.Dtos.EntitiesDtos;
 
-namespace Trips.Repositories;
+namespace Trips.Repositories.TripRepositories;
 
 public interface ITripRepository
 {

@@ -1,6 +1,6 @@
-using Trips.Dtos;
+using Trips.Dtos.ResponsesDtos;
 
-namespace Trips.Services;
+namespace Trips.Services.TripServices;
 
 public interface ITripService
 {

@@ -1,7 +1,7 @@
-using Trips.Dtos;
-using Trips.Repositories;
+using Trips.Dtos.ResponsesDtos;
+using Trips.Repositories.TripRepositories;
 
-namespace Trips.Services;
+namespace Trips.Services.TripServices;
 
 public class TripService(ITripRepository tripRepository) : ITripService
 {
