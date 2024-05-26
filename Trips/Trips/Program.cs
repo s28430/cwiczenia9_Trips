@@ -1,3 +1,7 @@
+using Trips.Entities;
+using Trips.Repositories;
+using Trips.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,6 +9,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers().AddXmlSerializerFormatters();
+
+builder.Services.AddDbContext<Cwiczenia9TripContext>();
+
+builder.Services.AddScoped<ITripService, TripService>();
+builder.Services.AddScoped<ITripRepository, TripRepository>();
 
 var app = builder.Build();
 

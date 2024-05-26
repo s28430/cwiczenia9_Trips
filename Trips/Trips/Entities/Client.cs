@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Trips.Entities;
+﻿namespace Trips.Entities;
 
 public partial class Client
 {
