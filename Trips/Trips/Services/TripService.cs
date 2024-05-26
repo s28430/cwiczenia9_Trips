@@ -7,7 +7,7 @@ public class TripService(ITripRepository tripRepository) : ITripService
 {
     private readonly ITripRepository _tripRepository = tripRepository;
     
-    public async Task<PagedGetTripsResponseDto> GetTripsInfoAsync(int? pageNum, int? pageSize, CancellationToken cancellationToken)
+    public async Task<PaginatedGetTripsResponseDto> GetTripsInfoAsync(int? pageNum, int? pageSize, CancellationToken cancellationToken)
     {
         var trips = await _tripRepository.GetTripsAsync(cancellationToken);
 
@@ -21,6 +21,6 @@ public class TripService(ITripRepository tripRepository) : ITripService
             .Skip((pageNumNonNull - 1) * pageSizeNonNull).ToList();
         
         
-        return new PagedGetTripsResponseDto(pageNum ?? 1, pageSize ?? 10, allPages, skippedTrips);
+        return new PaginatedGetTripsResponseDto(pageNum ?? 1, pageSize ?? 10, allPages, skippedTrips);
     }
 }

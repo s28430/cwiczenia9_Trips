@@ -4,6 +4,6 @@ namespace Trips.Services;
 
 public interface ITripService
 {
-    public Task<PagedGetTripsResponseDto> GetTripsInfoAsync(int? pageNum, 
+    public Task<PaginatedGetTripsResponseDto> GetTripsInfoAsync(int? pageNum, 
         int? pageSize, CancellationToken cancellationToken);
 }

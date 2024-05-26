@@ -14,6 +14,8 @@ builder.Services.AddDbContext<Cwiczenia9TripContext>();
 
 builder.Services.AddScoped<ITripService, TripService>();
 builder.Services.AddScoped<ITripRepository, TripRepository>();
+builder.Services.AddScoped<IClientService, ClientService>();
+builder.Services.AddScoped<IClientRepository, ClientRepository>();
 
 var app = builder.Build();
 
