@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Trips.Dtos.RequestsDtos;
 using Trips.Exceptions;
-using Trips.Services;
 using Trips.Services.ClientServices;
 using Trips.Services.TripServices;
 
@@ -38,10 +37,10 @@ public class TripsController(ITripService tripService, IClientService clientServ
         }
     }
 
-    [HttpPost]
+    [HttpPost("/{idTrip:int}/clients")]
     public async Task<IActionResult> AssignClientToTripAsync(
         AssignClientToTripRequestDto data, 
-        CancellationToken cancellationToken)
+        int idTrip, CancellationToken cancellationToken)
     {
         try
         {

@@ -8,7 +8,8 @@ public class TripRepository(Cwiczenia9TripContext context) : ITripRepository
 {
     private readonly Cwiczenia9TripContext _context = context;
     
-    public async Task<ICollection<TripDto>> GetTripsAsync(CancellationToken cancellationToken)
+    public async Task<ICollection<TripDto>> GetTripsAsync(int pageNum, int pageSize,
+        CancellationToken cancellationToken)
     {
    
         var trips = await _context
@@ -27,6 +28,8 @@ public class TripRepository(Cwiczenia9TripContext context) : ITripRepository
                 Clients = trip.ClientTrips.Select(ct =>
                     new ClientDto(ct.IdClientNavigation.FirstName, ct.IdClientNavigation.LastName))
             })
+            .Skip((pageNum - 1) * pageSize)
+            .Take(pageSize)
             .ToListAsync(cancellationToken);
             
         return trips;
